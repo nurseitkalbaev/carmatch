@@ -1,0 +1,187 @@
+/* Resetting default margin and padding */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles and fonts*/
+body {
+  line-height: 1.6;
+  background-color: #f7f7f7;
+  color: #333;
+  font-family: "Annapurna SIL", serif;
+  font-weight: 600;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+header {
+  background-color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+main {
+  padding-top: 120px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #00aaff;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.hero {
+  background-image: url("https://markstraveljournal.files.wordpress.com/2021/04/6-reasons-why-road-trips-are-better-than-flying-pic-1.jpg?w=1200");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 200px 0;
+}
+
+.hero h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 15px 40px;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+section h2 {
+  margin-bottom: 20px;
+}
+
+section ul {
+  list-style-type: none;
+}
+
+section ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input[type="text"],
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+#carDescription {
+  min-height: 40px;
+}
+
+form button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#bookButton {
+  width: 100%;
+}
+
+form button:hover {
+  background-color: #555;
+}
+
+.hamburgerMenu {
+  display: inline;
+  float: left;
+  padding-right: 40px;
+}
+
+.hamburgerButton {
+  color: #333;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 5px;
+  padding-bottom: 10px;
+  border: none;
+  background-color: white;
+  line-height: 0.35;
+}
+
+.navLinks {
+  position: absolute;
+  display: none;
+  color: #333;
+}
+.navLinks a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  background-color: #fff;
+  text-decoration: none;
+}
+.navLinks a:hover {
+  color: #00aaff;
+}

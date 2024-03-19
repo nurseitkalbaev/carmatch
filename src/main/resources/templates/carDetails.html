@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Details</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" th:href="@{/static/css/styles.css}"/>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Annapurna+SIL:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Inline Styles -->
+  <style>
+    .fullWidth {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    main {
+      padding: 0;
+      padding-top: 70px;
+    }
+
+    .actionButton {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .formContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    /* Add styles for form elements */
+    .formContainer form {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+    }
+
+    .formContainer label {
+      margin-bottom: 5px;
+    }
+
+    .formContainer input,
+    .formContainer textarea,
+    .formContainer button {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .formContainer button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Car Match</h1>
+    <nav>
+      <div class="hamburgerMenu">
+        <button class="hamburgerButton">☰</button>
+        <div class="navLinks">
+          <a href="#">Login</a>
+          <a href="#">Create Account</a>
+          <a href="#">Profile</a>
+        </div>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cars.html">Car Rental & Exchange</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container">
+      <!-- Fetching detailed car information (see carDetails.js) -->
+      <div id="carDetailsContainer" th:fragment="carDetails"></div>
+      <div class="buttonContainer">
+        <button id="rentButton" class="actionButton">Rent a Car</button>
+        <button id="exchangeButton" class="actionButton">Exchange Your Car</button>
+      </div>
+      <div id="rentFormContainer" class="formContainer">
+        <form id="rentForm">
+          <label for="fromDate">Trip start date:</label>
+          <input type="date" class="fromDate" name="fromDate" required/>
+          <label for="fromTime">Trip start time:</label>
+          <input type="time" class="fromTime" name="fromTime" required/>
+          <label for="toDate">Trip end date:</label>
+          <input type="date" class="toDate" name="toDate" required/>
+          <label for="toTime">Trip end time:</label>
+          <input type="time" class="toTime" name="toTime" required/>
+          <label for="pickupLocation">Pickup Location:</label>
+          <input type="text" class="pickupLocation" name="pickupLocation" required/>
+          <button type="submit" id="bookButton">Book a car</button>
+        </form>
+      </div>
+
+      <div id="exchangeFormContainer" class="formContainer">
+        <form id="exchangeForm">
+          <label for="fromDate">Trip start date:</label>
+          <input type="date" id="fromDate" name="fromDate" required pattern="\d{4}-\d{2}-\d{2}"
+                 title="Please enter a valid date (YYYY-DD-MM)"/>
+          <label for="fromTime">Trip start time:</label>
+          <input type="time" id="fromTime" name="fromTime" required/>
+          <label for="toDate">Trip end date:</label>
+          <input type="date" id="toDate" name="toDate" required pattern="\d{4}-\d{2}-\d{2}"
+                 title="Please enter a valid date (YYYY-DD-MM)"/>
+          <label for="toTime">Trip end time:</label>
+          <input type="time" id="toTime" name="toTime" required/>
+          <label for="pickupLocation">Pickup Location:</label>
+          <input type="text" id="pickupLocation" name="pickupLocation" required/>
+          <h3>Enter your car details</h3>
+          <label for="carMake">Make:</label>
+          <input type="text" id="carMake" name="carMake" required/>
+          <label for="carModel">Model:</label>
+          <input type="text" id="carModel" name="carModel" required/>
+          <label for="carYear">Year:</label>
+          <input type="text" id="carYear" name="carYear" required/>
+          <label for="carDescription">Description:</label>
+          <textarea id="carDescription" name="carDescription" required></textarea>
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <p>&copy; 2024 Car Rental & Exchange Platform</p>
+  </div>
+</footer>
+
+<script src="/static/js/carDetails.js"></script>
+<script src="/static/js/index.js"></script>
+</body>
+</html>

@@ -17,7 +17,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User booker;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "car_id")

@@ -11,8 +11,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id ;
-    private String username;
     private String password;
+    private String firstName;
+    private String lastName;
     private String email;
     private String phone;
     private String profilePictureUrl;
@@ -20,7 +21,7 @@ public class User {
     @OneToMany(mappedBy = "owner" , cascade = CascadeType.ALL)
     private List<Car> cars;
 
-    @OneToMany(mappedBy = "booker", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
 }

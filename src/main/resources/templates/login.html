@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Car Match</h1>
+    <nav>
+
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="carRental.html">Car Rental & Exchange</a></li>
+
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="login-section">
+    <div class="container">
+      <h2>Login</h2>
+      <form action="#" method="post" th:action="@{/login}" th:object="${user}">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" th:field="*{password}" required>
+        <br>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2024 Car Rental & Exchange Platform</p>
+  </div>
+</footer>
+
+<script src="/static/js/index.js"></script>
+</body>
+</html>

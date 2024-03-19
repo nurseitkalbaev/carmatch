@@ -1,0 +1,164 @@
+{
+  "hosts": [
+    {
+      "host": "Joey",
+      "id": "1",
+      "year": "2022",
+      "make": "Hyundai",
+      "model": "Elantra",
+      "location": "Seattle",
+      "price": "38",
+      "image": "https://images.turo.com/media/vehicle/images/oT9nPXDaQIaEc5ZnnCzphA.2880x1400.jpg"
+    },
+    {
+      "host": "Mark",
+      "id": "2",
+      "year": "2018",
+      "make": "Volkswagen",
+      "model": "Tiguan",
+      "location": "Bellevue",
+      "price": "51",
+      "image": "https://images.turo.com/media/vehicle/images/NtiZwOcrSTOpxCAcbOuOCg.2880x1400.jpg"
+    },
+    {
+      "host": "Charles",
+      "id": "3",
+      "year": "2023",
+      "make": "Honda",
+      "model": "Civic",
+      "location": "Renton",
+      "price": "45",
+      "image": "https://images.turo.com/media/vehicle/images/jULTpE6WSpmarDS5T1wFGg.2880x1400.jpg"
+    },
+    {
+      "host": "Mark",
+      "id": "4",
+      "year": "2020",
+      "make": "Nissan",
+      "model": "Rogue",
+      "location": "Seattle",
+      "price": "51",
+      "image": "https://images.turo.com/media/vehicle/images/xYY5xV4BSTiBbXSllNqv3g.2880x1400.jpg"
+    },
+    {
+      "host": "Steven",
+      "id": "5",
+      "year": "2022",
+      "make": "BMW",
+      "model": "iX",
+      "location": "Seattle",
+      "price": "90",
+      "image": "https://images.turo.com/media/vehicle/images/-Tm4or4RRbany0Jl3c4AkA.2880x1400.jpg"
+    },
+    {
+      "host": "Doug",
+      "id": "6",
+      "year": "2020",
+      "make": "BMW",
+      "model": "X5",
+      "location": "Bellevue",
+      "price": "99",
+      "image": "https://images.turo.com/media/vehicle/images/VY15dVA_ROOi_BRYLkHtGA.2880x1400.jpg"
+    },
+    {
+      "host": "Justin",
+      "id": "7",
+      "year": "2021",
+      "make": "Jeep",
+      "model": "Wrangler",
+      "location": "Kirkland",
+      "price": "65",
+      "image": "https://images.turo.com/media/vehicle/images/o2sCI1l3SyizkRI2aIfpaA.2880x1400.jpg"
+    },
+    {
+      "host": "Melisa",
+      "id": "8",
+      "year": "2024",
+      "make": "Buick",
+      "model": "Envista",
+      "location": "West Seattle",
+      "price": "50",
+      "image": "https://images.turo.com/media/vehicle/images/xZIg_2YHQQOeEOpemoQ8Hg.2880x1400.jpg"
+    },
+    {
+      "host": "Brocklin",
+      "id": "9",
+      "year": "2020",
+      "make": "Land Rover",
+      "model": "Range Rover Velar",
+      "location": "Bothell",
+      "price": "72",
+      "image": "https://images.turo.com/media/vehicle/images/p_oHGVCkSROU-xKznMaoeg.2880x1400.jpg"
+    },
+    {
+      "host": "Li",
+      "id": "10",
+      "year": "2022",
+      "make": "Mini",
+      "model": "Cooper",
+      "location": "Seattle",
+      "price": "46",
+      "image": "https://images.turo.com/media/vehicle/images/GpuQhOs0Td-aFBevNaR6KA.2880x1400.jpg"
+    },
+    {
+      "host": "Rainier",
+      "id": "11",
+      "year": "2022",
+      "make": "Rivian",
+      "model": "R1T",
+      "location": "Issaqua",
+      "price": "142",
+      "image": "https://images.turo.com/media/vehicle/images/YX4njih0QbmV1d8QTplmeg.2880x1400.jpg"
+    },
+    {
+      "host": "Alex",
+      "id": "12",
+      "year": "2016",
+      "make": "Toyota",
+      "model": "Tundra",
+      "location": "Burien",
+      "price": "65",
+      "image": "https://images.turo.com/media/vehicle/images/rO_bHN6OTueza6GU1YDyxg.2880x1400.jpg"
+    },
+    {
+      "host": "Trinity",
+      "id": "13",
+      "year": "2024",
+      "make": "Ford",
+      "model": "Bronco",
+      "location": "Kent",
+      "price": "58",
+      "image": "https://images.turo.com/media/vehicle/images/DPYNOEANSiGOMUG7ttM_xg.2880x1400.jpg"
+    },
+    {
+      "host": "Shakeb",
+      "id": "14",
+      "year": "2021",
+      "make": "Tesla",
+      "model": "Model 3",
+      "location": "Shoreline",
+      "price": "61",
+      "image": "https://images.turo.com/media/vehicle/images/ZpKiAwOnRsy1lXGRqxIu5w.2880x1400.jpg"
+    },
+    {
+      "host": "Henry",
+      "id": "15",
+      "year": "2023",
+      "make": "Tesla",
+      "model": "Model 3",
+      "location": "Bothell",
+      "price": "65",
+      "image": "https://images.turo.com/media/vehicle/images/CojCYJDOSdm2wWeQgySt_A.2880x1400.jpg"
+    },
+    {
+      "host": "Narantsetseg",
+      "id": "16",
+      "year": "2022",
+      "make": "Tesla",
+      "model": "Model S",
+      "location": "Kenmore",
+      "price": "124",
+      "image": "https://images.turo.com/media/vehicle/images/C77W9TpYQf6cuSdvQpmgWg.2880x1400.jpg"
+    }
+  ]
+}

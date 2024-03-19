@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Rental</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" th:href="@{/static/css/styles.css}"/>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Annapurna+SIL:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- External JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/pexels@2.0.1/dist/pexels.min.js"></script>
+  <!-- Inline Styles -->
+  <style>
+    section {
+      text-align: center;
+    }
+
+    #carTable {
+      margin: 0 auto;
+    }
+
+    #carTable tbody tr {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Car Match</h1>
+    <nav>
+      <div class="hamburgerMenu">
+        <button class="hamburgerButton">☰</button>
+        <div class="navLinks">
+          <a href="#">Login</a>
+          <a href="#">Create Account</a>
+          <a href="#">Profile</a>
+        </div>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cars.html">Car Rental & Exchange</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="container tableContainer">
+    <section>
+      <h2>Available Cars for Rental & Exchange</h2>
+      <!-- Table to display available cars -->
+      <table id="carTable">
+        <thead>
+        <tr>
+          <th>Year</th>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Image</th>
+        </tr>
+        </thead>
+        <tbody th:each="car:${cars}">
+        <tr th:onclick="viewCarDetails(${car.id})">
+          <td th:text="${car.year}">Year</td>
+          <td th:text="${car.make}">Make</td>
+          <td th:text="${car.model}">Model</td>
+          <td th:text="${car.location}">Location</td>
+          <td th:text="${car.price}">Price</td>
+          <td><img th:src="${car.image}" th:alt="${car.make} + ' ' + ${car.model}" style="width: 400px"/></td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+<footer>
+  <p>&copy; 2024 Car Rental & Exchange Platform</p>
+</footer>
+<!-- External JavaScript -->
+<script src="/static/js/carRental.js"></script>
+<script src="/static/js/index.js"></script>
+</body>
+</html>
+

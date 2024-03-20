@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="/static/css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 
 </head>
 <body>
@@ -26,7 +26,7 @@
   <section class="login-section">
     <div class="container">
       <h2>Login</h2>
-      <form action="#" method="post" th:action="@{/login}" th:object="${user}">
+      <form  th:action="@{/login}" method="post" th:object="${user}">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" th:field="*{email}" required>
         <br>
@@ -35,6 +35,7 @@
         <br>
         <button type="submit">Login</button>
       </form>
+      <p>Don't have an account? <a class="redirectButton" th:href="@{/signup}">Sign up</a></p>
     </div>
   </section>
 </main>

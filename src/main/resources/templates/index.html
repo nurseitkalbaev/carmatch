@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CarMatch - Car Rental & Exchange Platform</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Annapurna+SIL:wght@400;700&display=swap" rel="stylesheet">
-  <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -19,15 +17,15 @@
       <div class="hamburgerMenu">
         <button class="hamburgerButton">☰</button>
         <div class="navLinks">
-          <a href="#">Login</a>
-          <a href="#">Create Account</a>
-          <a href="#">Profile</a>
+          <a th:if="${authenticated}" href="#">Profile</a>
+          <a th:unless="${authenticated}" href="/login">Login</a>
+          <a th:unless="${authenticated}" href="/signup">Sign up</a>
+          <a th:if="${authenticated}" href="/logout">Logout</a>
         </div>
       </div>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/cars">Rent or Exchange a Car</a></li>
-        <!-- Add more navigation links as needed -->
       </ul>
     </nav>
   </div>
@@ -40,14 +38,12 @@
       <a href="/cars" class="btn">Rent or Exchange a Car</a>
     </div>
   </section>
-  <!-- Add more sections for featured cars, testimonials, etc. -->
 </main>
 <footer>
   <div class="container">
     <p>&copy; 2024 CarMatch - Car Rental & Exchange Platform</p>
   </div>
 </footer>
-<!-- JavaScript -->
 <script src="/js/index.js"></script>
 </body>
 </html>

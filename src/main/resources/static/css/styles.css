@@ -145,6 +145,20 @@ form button {
   border-radius: 5px;
   cursor: pointer;
 }
+.redirectButton{
+  background-color: #fff;
+  color: #333;
+  padding: 10px 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.redirectButton:hover {
+  color: #00aaff;
+  transition: color 0.3s ease;
+}
+
 #bookButton {
   width: 100%;
 }

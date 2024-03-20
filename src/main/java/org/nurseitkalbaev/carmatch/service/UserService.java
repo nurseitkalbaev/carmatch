@@ -12,4 +12,5 @@ public interface UserService {
     User getUserByEmail(String email);
     User getUserProfile(Long userId);
     User updateUserProfile(Long userId, User updatedProfile);
+    boolean authenticateUser(String email, String password);
 }

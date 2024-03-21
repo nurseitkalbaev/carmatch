@@ -50,7 +50,19 @@ public class UserServiceImpl implements UserService{
     public User updateUserProfile(Long userId, User updatedProfile) {
         User existingUser = userRepository.findById(userId).orElse(null);
         if (existingUser != null) {
-            return userRepository.save(updatedProfile);
+
+            // Merge data from updatedProfile into existingUser
+            existingUser.setFirstName(updatedProfile.getFirstName());
+            existingUser.setLastName(updatedProfile.getLastName());
+            existingUser.setEmail(updatedProfile.getEmail());
+            existingUser.setPhone(updatedProfile.getPhone());
+            existingUser.setAddress(updatedProfile.getAddress());
+            existingUser.setCity(updatedProfile.getCity());
+            existingUser.setState(updatedProfile.getState());
+            existingUser.setDateOfBirth(updatedProfile.getDateOfBirth());
+
+
+            return userRepository.save(existingUser);
         }
         return null;
     }

@@ -17,10 +17,10 @@
       <div class="hamburgerMenu">
         <button class="hamburgerButton">☰</button>
         <div class="navLinks">
-          <a th:if="${authenticated}" href="#">Profile</a>
-          <a th:unless="${authenticated}" href="/login">Login</a>
-          <a th:unless="${authenticated}" href="/signup">Sign up</a>
-          <a th:if="${authenticated}" href="/logout">Logout</a>
+          <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+          <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+          <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+          <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
         </div>
       </div>
       <ul>

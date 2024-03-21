@@ -3,6 +3,7 @@ package org.nurseitkalbaev.carmatch.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,10 @@ public class User {
     @Column(unique = true)
     private String email;
     private String phone;
-    private String profilePictureUrl;
+    private String address;
+    private String city;
+    private String state;
+    private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "owner" , cascade = CascadeType.ALL)
     private List<Car> cars;

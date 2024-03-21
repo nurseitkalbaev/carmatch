@@ -199,3 +199,53 @@ form button:hover {
 .navLinks a:hover {
   color: #00aaff;
 }
+
+/*Profile*/
+.profile-section {
+  margin-top: 50px;
+}
+
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.left-column {
+  flex: 1;
+}
+
+.right-column {
+  flex: 1;
+}
+
+.profile-edit {
+  margin-top: 50px;
+}
+
+.profile-edit form {
+  margin-bottom: 20px;
+}
+
+.profile-edit label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.profile-edit input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+.profile-edit button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-edit button:hover {
+  background-color: #0056b3;
+}

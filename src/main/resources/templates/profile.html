@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>CarMatch</h1>
+        <nav>
+            <div class="hamburgerMenu">
+                <button class="hamburgerButton">☰</button>
+                <div class="navLinks">
+                    <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+                    <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+                    <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+                    <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
+
+                </div>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/cars">Rent or Exchange a Car</a></li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+<main>
+    <section class="profile-section">
+        <div class="container">
+            <h2>Profile</h2>
+            <button id="editProfileBtn" class="editProfileBtn" th:if="${authenticated}">Edit Profile</button>
+            <div class="profile-info">
+                <div class="left-column">
+                    <h3>Personal Information</h3>
+                    <p th:text="'First Name: ' + ${user.firstName}"></p>
+                    <p th:text="'Last Name: ' + ${user.lastName}"></p>
+                    <p th:text="'City: ' + ${user.city}"></p>
+
+                </div>
+                <div class="right-column">
+                    <h3>Reviews</h3>
+                    <ul>
+                        <li th:each="review : ${reviews}" th:text="${review.comment}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="profile-edit">
+                <h3>Edit Profile</h3>
+                <form th:action="@{/profile}" method="post">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" th:value="${user.firstName}" required>
+                    <br>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" th:value="${user.lastName}" required>
+                    <br>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" th:value="${user.email}" required>
+                    <br>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" th:value="${user.phone}">
+                    <br>
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" th:value="${user.address}">
+                    <br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" th:value="${user.city}">
+                    <br>
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" th:value="${user.state}">
+                    <br>
+                    <label for="dateOfBirth">Date of Birth:</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${user.dateOfBirth}">
+                    <br>
+                    <button type="submit">Update Profile</button>
+                </form>
+                <h3>Change Password</h3>
+                <form th:action="@{/profile/change-password}" method="post">
+                    <label for="oldPassword">Old Password:</label>
+                    <input type="password" id="oldPassword" name="oldPassword" required>
+                    <br>
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <br>
+                    <label for="confirmPassword">Confirm New Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <br>
+                    <button type="submit">Change Password</button>
+                </form>
+                <div class="delete-account">
+                    <h3>Delete Account</h3>
+                    <form th:action="@{/delete-account}" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                        <label for="password">Enter your password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <button type="submit">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 CarMatch - Car Rental & Exchange Platform</p>
+    </div>
+</footer>
+
+<!-- Include your JavaScript files -->
+<script src="/js/index.js"></script>
+</body>
+</html>

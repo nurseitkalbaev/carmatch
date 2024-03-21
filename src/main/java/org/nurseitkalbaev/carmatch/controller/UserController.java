@@ -1,12 +1,16 @@
 package org.nurseitkalbaev.carmatch.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.nurseitkalbaev.carmatch.model.Review;
 import org.nurseitkalbaev.carmatch.model.User;
+import org.nurseitkalbaev.carmatch.service.ReviewService;
 import org.nurseitkalbaev.carmatch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -14,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReviewService reviewService;
 
 
     @GetMapping("/")
@@ -53,28 +60,76 @@ public class UserController {
     }
 
 
-    @GetMapping("/{userId}")
-    public String getUserProfile(@PathVariable Long userId, Model model) {
-        User user = userService.getUserProfile(userId);
+    @GetMapping("/profile")
+    public String getUserProfile( Model model , HttpSession session) {
+        User user = (User) session.getAttribute("user");
         if (user == null) {
-            return "error";
+            return "redirect:/login";
         }
+        List<Review> userReviews = reviewService.getReviewsByUserId((user.getId()));
         model.addAttribute("user", user);
-        return "userProfile";
+        model.addAttribute("reviews", userReviews);
+        return "profile";
     }
 
-    @PostMapping("/{userId}")
-    public String updateUserProfile(@PathVariable Long userId, @ModelAttribute User updatedProfile) {
-        User user = userService.updateUserProfile(userId, updatedProfile);
-        if (user == null) {
-            return "error";
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute User updatedProfile, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        if (!currentUser.getEmail().equals(updatedProfile.getEmail())) {
+            // Query the database for an existing user with the new email address
+            User existingUserWithEmail = userService.getUserByEmail(updatedProfile.getEmail());
+
+            // If an existing user with the new email address is found and it's not the current user
+            if (existingUserWithEmail != null && existingUserWithEmail.getId() != currentUser.getId()) {
+                // Handle conflict (e.g., return error message or redirect)
+                // You can customize this part based on your application's requirements
+                return "redirect:/profile?error=email_conflict";
+            }
         }
-        return "/" + userId;
+        userService.updateUserProfile(currentUser.getId(), updatedProfile);
+        return "/profile";
     }
 
-    @DeleteMapping("/{userId}")
-    public String deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return "/";
+
+    @PostMapping("/profile/change-password")
+    public String changePassword(@RequestParam("oldPassword") String oldPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 HttpSession session,
+                                 Model model) {
+        User currentUser = (User) session.getAttribute("user");
+
+        // Check if the old password matches the current user's password
+        if (!oldPassword.equals(currentUser.getPassword())) {
+            model.addAttribute("error", "Incorrect old password");
+            return "redirect:/profile";
+        }
+
+        // Check if the new password and confirm password match
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "New password and confirm password do not match");
+            return "redirect:/profile";
+        }
+
+        // Update the user's password with the new password
+        currentUser.setPassword(newPassword);
+        userService.updateUser(currentUser.getId(), currentUser); // Assuming you have a method to update the user in your service
+
+        return "redirect:/profile";
     }
+
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(@RequestParam String password, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null && userService.authenticateUser(user.getEmail(), password)) {
+            userService.deleteUser(user.getId());
+            session.invalidate();
+            return "redirect:/login";
+        } else {
+
+            return "redirect:/profile?error=password";
+        }
+    }
+
 }

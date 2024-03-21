@@ -17,6 +17,9 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAll();
     }
 
+    public List<Car> getCarsOwnedByUser(Long ownerId) {
+        return carRepository.findByOwnerId(ownerId);
+    }
     public Car getCarById(Long id) {
         return carRepository.findById(id).orElse(null);
     }

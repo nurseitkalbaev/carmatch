@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpSession;
 import org.nurseitkalbaev.carmatch.model.Car;
 import org.nurseitkalbaev.carmatch.model.User;
 import org.nurseitkalbaev.carmatch.service.CarService;
-import org.nurseitkalbaev.carmatch.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,26 +15,29 @@ import java.util.List;
 public class CarController {
 
     private CarService carService;
-    private UserService userService;
 
     public CarController(CarService carService) {
         this.carService = carService;
     }
 
 
-    @GetMapping("/all")
-    public String getAllCars(Model model) {
-        List<Car> allCars = carService.getAllCars(); // Assuming there's a method in CarService to retrieve all cars
+    @GetMapping("/carRental")
+    public String getAllCars(Model model, HttpSession session) {
+        boolean isAuthenticated = session.getAttribute("user") != null;
+        model.addAttribute("authenticated", isAuthenticated);
+        List<Car> allCars = carService.getAllCars();
         model.addAttribute("allCars", allCars);
-        return "allCars";
+        return "carRental";
     }
 
     @GetMapping("/listings")
     public String getUserCars(Model model , HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
+        boolean isAuthenticated = session.getAttribute("user") != null;
+        model.addAttribute("authenticated", isAuthenticated);
         if(currentUser != null){
             List<Car> listings = carService.getCarsOwnedByUser(currentUser.getId());
-            model.addAttribute("listings", listings);
+            model.addAttribute("cars", listings);
             return "vehicles";
         }
         else{
@@ -45,8 +47,10 @@ public class CarController {
     }
 
 
-    @GetMapping("/{carId}")
-    public String getCarById(@PathVariable Long carId, Model model) {
+    @GetMapping("/carDetails/{carId}")
+    public String getCarById(@PathVariable Long carId, Model model, HttpSession session) {
+        boolean isAuthenticated = session.getAttribute("user") != null;
+        model.addAttribute("authenticated", isAuthenticated);
         Car car = carService.getCarById(carId);
         if (car == null) {
             return "error";
@@ -56,21 +60,35 @@ public class CarController {
     }
 
 
-    @PostMapping
-    public String createCar(@ModelAttribute Car car) {
-        carService.createCar(car);
-        return "carRental";
+    @PostMapping("/add")
+    public String addCar(@ModelAttribute Car newCar, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        newCar.setOwner(currentUser);
+        carService.createCar(newCar);
+        return "redirect:/vehicles/listings";
+    }
+    @GetMapping("/editVehicle/{carId}")
+    public String editVehicle(@PathVariable Long carId, Model model, HttpSession session) {
+        boolean isAuthenticated = session.getAttribute("user") != null;
+        model.addAttribute("authenticated", isAuthenticated);
+        Car car = carService.getCarById(carId);
+        if (car == null) {
+            return "error";
+        }
+        model.addAttribute("car", car);
+        return "editVehicle";
     }
 
-    @PutMapping("/{carId}")
+    @PostMapping("/editVehicle/{carId}")
     public String updateCar(@PathVariable Long carId, @ModelAttribute Car updatedCar) {
+        updatedCar.setId(carId);
         carService.updateCar(carId, updatedCar);
-        return "carRental";
+        return "redirect:/vehicles/listings";
     }
 
-    @DeleteMapping("/{carId}")
-    public String deleteCar(@PathVariable Long carId) {
+    @PostMapping("/delete")
+    public String deleteCar(@RequestParam("carId") Long carId) {
         carService.deleteCar(carId);
-        return "carRental";
+        return "redirect:/vehicles/listings";
     }
 }

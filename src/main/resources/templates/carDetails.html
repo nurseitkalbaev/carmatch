@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Car Details</title>
   <!-- External CSS -->
-  <link rel="stylesheet" th:href="@{/static/css/styles.css}"/>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -64,24 +64,29 @@
       border: none;
       cursor: pointer;
     }
+    .active{
+      background: #28a745;
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="container">
-    <h1>Car Match</h1>
+    <h1>CarMatch</h1>
     <nav>
       <div class="hamburgerMenu">
         <button class="hamburgerButton">☰</button>
         <div class="navLinks">
-          <a href="#">Login</a>
-          <a href="#">Create Account</a>
-          <a href="#">Profile</a>
+          <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+          <a th:if="${authenticated}" th:href="@{/vehicles/listings}">Vehicles</a>
+          <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+          <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+          <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
         </div>
       </div>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="carRental.html">Car Rental & Exchange</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/vehicles/carRental">Rent or Exchange a Car</a></li>
       </ul>
     </nav>
   </div>
@@ -89,11 +94,17 @@
 <main>
   <section>
     <div class="container">
-      <!-- Fetching detailed car information (see carDetails.js) -->
-      <div id="carDetailsContainer" th:fragment="carDetails"></div>
+      <div id="carDetailsContainer" th:fragment="carDetails">
+        <img th:src="${car.imageUrl}" th:alt="${car.make} + ' ' + ${car.model}" class="fullWidth">
+        <h2 th:text="${car.make} + ' ' + ${car.model}"></h2>
+        <h3 th:text="'Year: ' + ${car.year}"></h3>
+        <h3 th:text="'Price: $' + ${car.price}"></h3>
+      </div>
       <div class="buttonContainer">
-        <button id="rentButton" class="actionButton">Rent a Car</button>
-        <button id="exchangeButton" class="actionButton">Exchange Your Car</button>
+        <button th:if="${authenticated}"  id="rentAuth" class="actionButton">Rent a Car</button>
+        <button th:unless="${authenticated}"  id="rentNotAuth" class="actionButton">Rent a Car</button>
+        <button th:if="${authenticated}" id="exchangeButtonAuth" class="actionButton">Exchange Your Car</button>
+        <button th:unless="${authenticated}" id="exchangeButtonNotAuth" class="actionButton">Exchange Your Car</button>
       </div>
       <div id="rentFormContainer" class="formContainer">
         <form id="rentForm">
@@ -146,7 +157,7 @@
   </div>
 </footer>
 
-<script src="/static/js/carDetails.js"></script>
-<script src="/static/js/index.js"></script>
+<script src="/js/carDetails.js"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

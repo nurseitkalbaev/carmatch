@@ -53,6 +53,7 @@ public class UserController {
         if (userService.authenticateUser(email, password)) {
             User user = userService.getUserByEmail(email);
             session.setAttribute("user", user);
+            session.setAttribute("loggedIn", true);
             return "redirect:/";
         } else {
             return "redirect:/login?error";
@@ -63,6 +64,8 @@ public class UserController {
     @GetMapping("/profile")
     public String getUserProfile( Model model , HttpSession session) {
         User user = (User) session.getAttribute("user");
+        boolean isAuthenticated = session.getAttribute("user") != null;
+        model.addAttribute("authenticated", isAuthenticated);
         if (user == null) {
             return "redirect:/login";
         }
@@ -76,13 +79,8 @@ public class UserController {
     public String updateProfile(@ModelAttribute User updatedProfile, HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
         if (!currentUser.getEmail().equals(updatedProfile.getEmail())) {
-            // Query the database for an existing user with the new email address
             User existingUserWithEmail = userService.getUserByEmail(updatedProfile.getEmail());
-
-            // If an existing user with the new email address is found and it's not the current user
             if (existingUserWithEmail != null && existingUserWithEmail.getId() != currentUser.getId()) {
-                // Handle conflict (e.g., return error message or redirect)
-                // You can customize this part based on your application's requirements
                 return "redirect:/profile?error=email_conflict";
             }
         }
@@ -98,19 +96,16 @@ public class UserController {
                                  HttpSession session,
                                  Model model) {
         User currentUser = (User) session.getAttribute("user");
-
         // Check if the old password matches the current user's password
         if (!oldPassword.equals(currentUser.getPassword())) {
             model.addAttribute("error", "Incorrect old password");
             return "redirect:/profile";
         }
-
         // Check if the new password and confirm password match
         if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "New password and confirm password do not match");
             return "redirect:/profile";
         }
-
         // Update the user's password with the new password
         currentUser.setPassword(newPassword);
         userService.updateUser(currentUser.getId(), currentUser); // Assuming you have a method to update the user in your service
@@ -119,6 +114,11 @@ public class UserController {
     }
 
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
     @PostMapping("/delete-account")
     public String deleteAccount(@RequestParam String password, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -127,7 +127,6 @@ public class UserController {
             session.invalidate();
             return "redirect:/login";
         } else {
-
             return "redirect:/profile?error=password";
         }
     }

@@ -13,6 +13,7 @@ public class Car {
     private String model;
     private int year;
     private double price;
+    private String location;
     private String description;
     private String imageUrl;
 

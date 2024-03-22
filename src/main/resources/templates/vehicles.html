@@ -23,7 +23,7 @@
       </div>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/cars">Rent or Exchange a Car</a></li>
+        <li><a href="/vehicles/carRental">Rent or Exchange a Car</a></li>
       </ul>
     </nav>
   </div>
@@ -32,12 +32,70 @@
 <main>
   <section id="vehicles">
     <h2>Vehicles</h2>
-    <!-- Your vehicle listings or content here -->
+    <!-- Button to add a new car -->
+    <button id="addCarBtn" onclick="toggleForm()">Add New Car</button>
+
+    <!-- Form to add a new car (initially hidden) -->
+    <form th:action="@{/vehicles/add}"  method="post" id="addCarForm" style="display: none;">
+      <label for="year">Year:</label>
+      <input type="number" id="year" name="year" required><br>
+
+      <label for="make">Make:</label>
+      <input type="text" id="make" name="make" required><br>
+
+      <label for="model">Model:</label>
+      <input type="text" id="model" name="model" required><br>
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required><br>
+
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" required><br>
+
+      <label for="imageUrl">Image URL:</label>
+      <input type="url" id="imageUrl" name="imageUrl" required><br>
+
+      <button type="submit">Add Car</button>
+      <button type="button" onclick="cancelAdd()">Cancel</button>
+    </form>
+
+
+    <table  id="listingsTable">
+      <thead>
+      <tr>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody th:each="car:${cars}">
+      <tr th:onclick="viewCarDetails(${car.id})">
+        <td th:text="${car.year}">Year</td>
+        <td th:text="${car.make}">Make</td>
+        <td th:text="${car.model}">Model</td>
+        <td th:text="${car.location}">Location</td>
+        <td th:text="${car.price}">Price</td>
+        <td><img th:src="${car.imageUrl}" th:alt="${car.make} + ' ' + ${car.model}" style="width: 400px"/></td>
+        <td>
+          <a th:href="@{'/vehicles/editVehicle/' + ${car.id}}">Edit</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </section>
 </main>
 
 <footer>
-  <!-- Footer section (similar to index.html) -->
+
 </footer>
+
+<script th:src="@{/js/vehicles.js}"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

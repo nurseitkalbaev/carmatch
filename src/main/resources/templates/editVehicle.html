@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Vehicle</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>CarMatch</h1>
+        <nav>
+            <div class="hamburgerMenu">
+                <button class="hamburgerButton">☰</button>
+                <div class="navLinks">
+                    <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+                    <a th:if="${authenticated}" th:href="@{/vehicles/listings}">Vehicles</a>
+                    <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+                    <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+                    <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/vehicles/carRental">Rent or Exchange a Car</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section id="editVehicle">
+        <h2>Edit Vehicle</h2>
+
+
+        <form th:action="@{/vehicles/update}" method="post">
+            <input type="hidden" id="editCarId" name="carId" th:value="${car.id}">
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" th:value="${car.year}" required><br>
+
+            <label for="make">Make:</label>
+            <input type="text" id="make" name="make" th:value="${car.make}" required><br>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" th:value="${car.model}" required><br>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" th:value="${car.location}" required><br>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" th:value="${car.price}" required><br>
+
+            <label for="imageUrl">Image URL:</label>
+            <input type="url" id="imageUrl" name="imageUrl" th:value="${car.imageUrl}" required><br>
+
+            <button type="submit">Save</button>
+        </form>
+
+
+        <form th:action="@{/vehicles/delete}" method="post">
+            <input type="hidden" id="deleteCarId" name="carId" th:value="${car.id}">
+            <button type="submit">Delete Car</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+
+</footer>
+
+<script th:src="@{/js/editVehicle.js}"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

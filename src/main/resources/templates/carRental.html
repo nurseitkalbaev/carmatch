@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Car Rental</title>
   <!-- External CSS -->
-  <link rel="stylesheet" th:href="@{/static/css/styles.css}"/>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -30,19 +30,21 @@
 <body>
 <header>
   <div class="container">
-    <h1>Car Match</h1>
+    <h1>CarMatch</h1>
     <nav>
       <div class="hamburgerMenu">
         <button class="hamburgerButton">☰</button>
         <div class="navLinks">
-          <a href="#">Login</a>
-          <a href="#">Create Account</a>
-          <a href="#">Profile</a>
+          <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+          <a th:if="${authenticated}" th:href="@{/vehicles/listings}">Vehicles</a>
+          <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+          <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+          <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
         </div>
       </div>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="cars.html">Car Rental & Exchange</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/vehicles/carRental">Rent or Exchange a Car</a></li>
       </ul>
     </nav>
   </div>
@@ -63,14 +65,14 @@
           <th>Image</th>
         </tr>
         </thead>
-        <tbody th:each="car:${cars}">
-        <tr th:onclick="viewCarDetails(${car.id})">
+        <tbody th:each="car:${allCars}">
+        <tr th:onclick="'viewCarDetails(' + ${car.id} + ')'" >
           <td th:text="${car.year}">Year</td>
           <td th:text="${car.make}">Make</td>
           <td th:text="${car.model}">Model</td>
           <td th:text="${car.location}">Location</td>
-          <td th:text="${car.price}">Price</td>
-          <td><img th:src="${car.image}" th:alt="${car.make} + ' ' + ${car.model}" style="width: 400px"/></td>
+          <td th:text="'$' + ${car.price}">Price</td>
+          <td><img th:src="${car.imageUrl}" th:alt="${car.make} + ' ' + ${car.model}" style="width: 400px"/></td>
         </tr>
         </tbody>
       </table>
@@ -80,8 +82,8 @@
 <footer>
   <p>&copy; 2024 Car Rental & Exchange Platform</p>
 </footer>
-<script src="/static/js/carRental.js"></script>
-<script src="/static/js/index.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/carRental.js"></script>
 </body>
 </html>
 

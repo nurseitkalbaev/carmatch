@@ -10,13 +10,21 @@
 <body>
 <header>
   <div class="container">
-    <h1>Car Match</h1>
+    <h1>CarMatch</h1>
     <nav>
-
+      <div class="hamburgerMenu">
+        <button class="hamburgerButton">☰</button>
+        <div class="navLinks">
+          <a th:if="${authenticated}" th:href="@{/profile}">Profile</a>
+          <a th:if="${authenticated}" th:href="@{/vehicles/listings}">Vehicles</a>
+          <a th:unless="${authenticated}" th:href="@{/login}">Login</a>
+          <a th:unless="${authenticated}" th:href="@{/signup}">Sign up</a>
+          <a th:if="${authenticated}" th:href="@{/logout}">Logout</a>
+        </div>
+      </div>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="carRental.html">Car Rental & Exchange</a></li>
-
+        <li><a href="/">Home</a></li>
+        <li><a href="/vehicles/carRental">Rent or Exchange a Car</a></li>
       </ul>
     </nav>
   </div>
@@ -46,6 +54,6 @@
   </div>
 </footer>
 
-<script src="/static/js/index.js"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

@@ -1,9 +1,13 @@
 package org.nurseitkalbaev.carmatch.service;
 
 import org.nurseitkalbaev.carmatch.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
+    public UserDetails loadUserByUsername(String userName);
     List<User> getAllUsers();
     User getUserById(Long userId);
     void createUser(User newUser);

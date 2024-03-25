@@ -9,20 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class UserController {
+//
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    private ReviewService reviewService;
+//
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
+
+    private final UserService userService;
+    private final ReviewService reviewService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ReviewService reviewService;
-
-
+    public UserController(UserService userService, ReviewService reviewService, BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.reviewService = reviewService;
+        this.passwordEncoder = passwordEncoder;
+    }
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
         boolean isAuthenticated = session.getAttribute("user") != null;
@@ -37,7 +50,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String registerUser(User user) {
+    public String registerUser(@ModelAttribute User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createUser(user);
         return "redirect:/login";
     }
@@ -50,8 +64,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
-        if (userService.authenticateUser(email, password)) {
-            User user = userService.getUserByEmail(email);
+        User user = userService.getUserByEmail(email);
+        System.out.println(user + " user is printing");
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             session.setAttribute("user", user);
             session.setAttribute("loggedIn", true);
             return "redirect:/";

@@ -19,16 +19,15 @@ public class UserServiceImpl implements UserService{
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
-    public User createUser(User newUser){
-        return userRepository.save(newUser);
+    public void createUser(User newUser){
+        userRepository.save(newUser);
     }
-    public User updateUser(Long userId, User updatedUser){
+    public void updateUser(Long userId, User updatedUser){
         User existingUser = userRepository.findById(userId).orElse(null);
         if (existingUser != null) {
             updatedUser.setId(existingUser.getId());
-            return userRepository.save(updatedUser);
+            userRepository.save(updatedUser);
         }
-        return null;
     }
     public void deleteUser(Long userId){
         if (!userRepository.existsById(userId)) {
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUserProfile(Long userId, User updatedProfile) {
+    public void updateUserProfile(Long userId, User updatedProfile) {
         User existingUser = userRepository.findById(userId).orElse(null);
         if (existingUser != null) {
 
@@ -62,9 +61,8 @@ public class UserServiceImpl implements UserService{
             existingUser.setDateOfBirth(updatedProfile.getDateOfBirth());
 
 
-            return userRepository.save(existingUser);
+            userRepository.save(existingUser);
         }
-        return null;
     }
 
     @Override

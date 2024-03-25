@@ -18,6 +18,5 @@ public class Car {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "user_Id")
     private User owner;
 }

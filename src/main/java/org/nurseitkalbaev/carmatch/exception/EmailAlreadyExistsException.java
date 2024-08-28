@@ -1,0 +1,7 @@
+package org.nurseitkalbaev.carmatch.exception;
+
+public class EmailAlreadyExistsException extends RuntimeException {
+    public EmailAlreadyExistsException(String message) {
+        super(message);
+    }
+}

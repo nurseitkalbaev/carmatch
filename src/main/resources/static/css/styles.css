@@ -36,6 +36,7 @@ header {
 }
 main {
   padding-top: 120px;
+  min-height: 75vh;
 }
 
 nav ul {

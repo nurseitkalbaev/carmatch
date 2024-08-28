@@ -1,6 +1,7 @@
 package org.nurseitkalbaev.carmatch.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.nurseitkalbaev.carmatch.exception.EmailAlreadyExistsException;
 import org.nurseitkalbaev.carmatch.model.Review;
 import org.nurseitkalbaev.carmatch.model.User;
 import org.nurseitkalbaev.carmatch.service.ReviewService;
@@ -37,9 +38,14 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String registerUser(User user) {
-        userService.createUser(user);
-        return "redirect:/login";
+    public String registerUser(@ModelAttribute User user , Model model) {
+        try {
+            userService.createUser(user);
+            return "redirect:/login";
+        } catch (EmailAlreadyExistsException e) {
+            model.addAttribute("error", "Email already exists");
+            return "signup";
+        }
     }
 
     @GetMapping("/login")

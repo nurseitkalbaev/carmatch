@@ -1,11 +1,13 @@
 package org.nurseitkalbaev.carmatch.service;
 
+import org.nurseitkalbaev.carmatch.exception.EmailAlreadyExistsException;
 import org.nurseitkalbaev.carmatch.model.User;
 import org.nurseitkalbaev.carmatch.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+// Implementation of UserService interface
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -19,7 +21,15 @@ public class UserServiceImpl implements UserService{
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
-    public void createUser(User newUser){
+
+    // Method to create a new user
+    @Override
+    public void createUser(User newUser) {
+        String email = newUser.getEmail();
+        if (userRepository.findByEmail(email) != null) {
+            throw new EmailAlreadyExistsException("Email " + email + " is already taken");
+        }
+        // Proceed with user creation if email is not taken
         userRepository.save(newUser);
     }
     public void updateUser(Long userId, User updatedUser){
@@ -65,6 +75,7 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    // Method to authenticate a user
     @Override
     public boolean authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
